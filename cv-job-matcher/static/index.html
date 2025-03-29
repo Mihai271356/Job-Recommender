@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CV Job Matcher</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        #results { margin-top: 20px; }
+        .job { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Upload CV to Find Jobs</h1>
+    <form id="cvForm">
+        <input type="file" id="cvFile" accept=".pdf" required>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById('cvForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const file = document.getElementById('cvFile').files[0];
+            const formData = new FormData();
+            formData.append('file', file);
+
+            document.getElementById('results').innerHTML = 'Processing...';
+
+            // Upload CV to Java backend
+            const cvResponse = await fetch('http://localhost:8080/api/cv', {
+                method: 'POST',
+                body: formData
+            });
+            const cvData = await cvResponse.json();
+            if (cvData.error) {
+                document.getElementById('results').innerHTML = `Error: ${cvData.error}`;
+                return;
+            }
+
+            // Fetch jobs from Python backend
+            const jobsResponse = await fetch('http://localhost:5000/api/jobs');
+            const jobsData = await jobsResponse.json();
+            if (jobsData.error) {
+                document.getElementById('results').innerHTML = `Error: ${jobsData.error}`;
+                return;
+            }
+
+            // Display job results
+            const results = jobsData.jobs.map(job => `
+                <div class="job">
+                    <h3>${job.title}</h3>
+                    <p>${job.company} - ${job.location}</p>
+                    <p>Posted: ${job.posted}</p>
+                    <a href="${job.link}" target="_blank">Apply</a>
+                </div>
+            `).join('');
+            document.getElementById('results').innerHTML = results || 'No jobs found';
+        });
+    </script>
+</body>
+</html>
