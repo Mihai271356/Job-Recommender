@@ -1,17 +1,17 @@
-# Job Recommender
+# Job Recommender 📋
 A job-matching app using Python, Flask, and Selenium to scrape LinkedIn, with Java, Apache PDFBox for CV parsing, and an HTML/CSS/JavaScript frontend with a RESTful API.
 
-## What It Does
+## What It Does 🔍
 - Reads your CV data.
 - Searches LinkedIn for internships using your top skills and location.
 - Shows a list of jobs with titles, dates, and links.
 
-## Tech used
+## Tech used 🛠️
 - Python, Flask, Selenium.
 - Java and Apache PDFBox for CV parsing.
 - HTML, CSS, JavaScript for the webpage.
 
-## How to Set It Up
+## How to Set It Up ⚙️
 git clone https://github.com/Mihai271356/Job-Recommender.git
 cd Job-Recommender
 python -m venv venv
