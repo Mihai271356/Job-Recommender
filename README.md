@@ -12,12 +12,13 @@ A job-matching app using Python, Flask, and Selenium to scrape LinkedIn, with Ja
 - HTML, CSS, JavaScript for the webpage.
 
 ## How to Set It Up ⚙️
+```
 git clone https://github.com/Mihai271356/Job-Recommender.git
 cd Job-Recommender
 python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
 python scrapeLinkedin.py
-
+```
 Open your browser and go to:
 http://127.0.0.1:5000
