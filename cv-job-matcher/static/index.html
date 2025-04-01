@@ -26,7 +26,6 @@
 
             document.getElementById('results').innerHTML = 'Processing...';
 
-            // Upload CV to Java backend
             const cvResponse = await fetch('http://localhost:8080/api/cv', {
                 method: 'POST',
                 body: formData
@@ -37,7 +36,6 @@
                 return;
             }
 
-            // Fetch jobs from Python backend
             const jobsResponse = await fetch('http://localhost:5000/api/jobs');
             const jobsData = await jobsResponse.json();
             if (jobsData.error) {
@@ -45,7 +43,6 @@
                 return;
             }
 
-            // Display job results
             const results = jobsData.jobs.map(job => `
                 <div class="job">
                     <h3>${job.title}</h3>
